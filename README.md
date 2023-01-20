@@ -89,13 +89,13 @@ To clone this repository to your desired folder:
 - You can download the **Zip** file from the GitHub repository, or clone the repository with:
 
 ```console
-git clone https://github.com/elafildecolor/Math-Magicians.git
+git clone https://github.com/elafildecolor/Bookstore.git
 ```
 
 - Access the cloned directory with:
 
 ```console
-cd Math-Magicians
+cd Bookstore
 ```
 
 - Open it with your favorite code editor or with the live server
