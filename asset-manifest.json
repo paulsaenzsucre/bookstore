@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/Bookstore/static/js/main.7258c1ff.js",
+    "static/js/787.08f3454f.chunk.js": "/Bookstore/static/js/787.08f3454f.chunk.js",
+    "index.html": "/Bookstore/index.html",
+    "main.7258c1ff.js.map": "/Bookstore/static/js/main.7258c1ff.js.map",
+    "787.08f3454f.chunk.js.map": "/Bookstore/static/js/787.08f3454f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.7258c1ff.js"
+  ]
+}
