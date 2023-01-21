@@ -1,12 +1,24 @@
 import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import BooksPage from './pages/BooksPage';
+import CategoriesPage from './pages/CategoriesPage';
 import Header from './components/Header';
 
-function App() {
-  return (
-    <div className="App">
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render = () => (
+    <>
       <Header />
-    </div>
+      <Routes>
+        <Route index element={<BooksPage />} />
+        <Route path="/categories/" element={<CategoriesPage />} />
+      </Routes>
+    </>
   );
 }
-
 export default App;
