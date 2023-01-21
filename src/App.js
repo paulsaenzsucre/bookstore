@@ -1,10 +1,16 @@
 import './App.css';
-import CircleProgress from './components/CircleProgress';
+import Book from './components/Book';
 
 function App() {
   return (
     <div className="App">
-      <CircleProgress ratio="0.25" />
+      <Book
+        category="Action"
+        title="The Hunger Games"
+        author="Suzanne Collins"
+        chapters={25}
+        currentChapter={16}
+      />
     </div>
   );
 }
