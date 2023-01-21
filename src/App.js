@@ -1,10 +1,10 @@
 import './App.css';
-import AddBookForm from './components/AddBookForm';
+import BooksPage from './pages/BooksPage';
 
 function App() {
   return (
     <div className="App">
-      <AddBookForm />
+      <BooksPage />
     </div>
   );
 }
