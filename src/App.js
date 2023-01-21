@@ -1,10 +1,10 @@
 import './App.css';
-import CategoriesPage from './pages/CategoriesPage';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="App">
-      <CategoriesPage />
+      <Navbar />
     </div>
   );
 }
