@@ -1,20 +1,40 @@
-import { Component } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addBook } from '../redux/books/books';
 
-class AddBookForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const AddBookForm = () => {
+  const emptyBook = () => ({
+    title: '',
+    author: '',
+  });
 
-  render = () => (
+  const [bookInfo, setBookInfo] = useState(emptyBook());
+
+  const dispatch = useDispatch();
+
+  const onChange = (evt) => {
+    setBookInfo({
+      ...bookInfo,
+      [evt.target.name]: evt.target.value,
+    });
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(addBook(bookInfo));
+    setBookInfo(emptyBook());
+  };
+
+  return (
     <div>
       <p>ADD NEW BOOK</p>
-      <form>
-        <input type="text" placeholder="Book title" name="bookTitle" />
-        <input type="text" placeholder="Book author" name="bookAuthor" />
+      <form onSubmit={handleSubmit}>
+        <input type="text" onChange={onChange} placeholder="Book title" name="title" required value={bookInfo.title} />
+        <input type="text" onChange={onChange} placeholder="Book author" name="author" required value={bookInfo.author} />
         <input type="submit" value="ADD BOOK" />
       </form>
     </div>
   );
-}
+};
+
 export default AddBookForm;

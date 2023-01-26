@@ -1,15 +1,21 @@
-import { Component } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { checkStatus } from '../redux/categories/categories';
 
-class CategoriesPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const CategoriesPage = () => {
+  const categories = useSelector((state) => state.categories);
+  const dispatch = useDispatch();
 
-  render = () => (
+  const checkStatusHandler = () => {
+    dispatch(checkStatus());
+  };
+
+  return (
     <div>
-      <button type="button">CHECK STATUS</button>
+      <button type="button" onClick={checkStatusHandler}>CHECK STATUS</button>
+      <p>{categories}</p>
     </div>
   );
-}
+};
+
 export default CategoriesPage;
