@@ -1,10 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
+
 // Actions
 const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
 
 // Reducer
 const reducer = (state = [{
-  id: 0,
+  id: uuidv4(),
   category: 'Action',
   title: 'The Hunger Games',
   author: 'Suzanne Collins',
@@ -12,7 +14,7 @@ const reducer = (state = [{
   currentChapter: 16,
 },
 {
-  id: 1,
+  id: uuidv4(),
   category: 'Science Fiction',
   title: 'Dune',
   author: 'Frank Herbert',
@@ -20,7 +22,7 @@ const reducer = (state = [{
   currentChapter: 2,
 },
 {
-  id: 2,
+  id: uuidv4(),
   category: 'Economy',
   title: 'Capital in the Twenty-First century',
   author: 'Suzanne Collins',
@@ -32,7 +34,7 @@ const reducer = (state = [{
   switch (action.type) {
     case ADD_BOOK:
       newState = [...state];
-      return newState.push(action.payload);
+      return [...state, action.payload];
 
     case REMOVE_BOOK:
       newState = state.filter((book) => book.id !== action.payload.id);
@@ -43,10 +45,21 @@ const reducer = (state = [{
 };
 
 // Action Creators
-const addBook = (book) => ({
-  type: ADD_BOOK,
-  payload: book,
-});
+const addBook = (book) => {
+  const chapters = Math.round(15 + Math.random() * 50);
+  const currentChapter = Math.round(Math.random() * chapters);
+
+  return {
+    type: ADD_BOOK,
+    payload: {
+      id: uuidv4(),
+      category: 'Miscellaneous',
+      ...book,
+      chapters,
+      currentChapter,
+    },
+  };
+};
 
 const removeBook = (book) => ({
   type: REMOVE_BOOK,
