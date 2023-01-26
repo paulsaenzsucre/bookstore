@@ -12,11 +12,13 @@ class Book extends Component {
 
   render = () => {
     const {
+      id,
       category,
       title,
       author,
       chapters,
       currentChapter,
+      removeBook,
     } = this.props;
 
     return (
@@ -30,7 +32,7 @@ class Book extends Component {
           <div className="actionBar">
             <button type="button" className="actionBtn">Comments</button>
             <hr />
-            <button type="button" className="actionBtn">Remove</button>
+            <button type="button" className="actionBtn" onClick={() => removeBook(id)}>Remove</button>
             <hr />
             <button type="button" className="actionBtn">Edit</button>
           </div>
@@ -58,11 +60,13 @@ class Book extends Component {
 }
 
 Book.propTypes = {
+  id: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   chapters: PropTypes.number.isRequired,
   currentChapter: PropTypes.number.isRequired,
+  removeBook: PropTypes.func.isRequired,
 };
 
 export default Book;
