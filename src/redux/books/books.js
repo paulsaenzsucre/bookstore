@@ -14,9 +14,9 @@ const getRandomProgress = () => {
 
 // Actions
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
-const FETCH_BOOKS_START = 'bookStore/books/FETCH_BOOKS_START';
-const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
-const FETCH_BOOKS_ERROR = 'bookStore/books/FETCH_BOOKS_ERROR';
+const GET_BOOKS_START = 'bookStore/books/FETCH_BOOKS_START';
+const GET_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
+const GET_BOOKS_ERROR = 'bookStore/books/FETCH_BOOKS_ERROR';
 const POST_BOOK_START = 'bookStore/books/POST_BOOK_START';
 const POST_BOOK_SUCCESS = 'bookStore/books/POST_BOOK_SUCCESS';
 const POST_BOOK_ERROR = 'bookStore/books/POST_BOOK_ERROR';
@@ -24,28 +24,22 @@ const POST_BOOK_ERROR = 'bookStore/books/POST_BOOK_ERROR';
 // Reducer
 const reducer = (state = [], action = {}) => {
   switch (action.type) {
-    case FETCH_BOOKS_START:
-      console.log('Start fetching books');
+    case GET_BOOKS_START:
       return state;
 
-    case FETCH_BOOKS_SUCCESS:
-      console.log('Success: ', action.payload);
+    case GET_BOOKS_SUCCESS:
       return action.payload;
 
-    case FETCH_BOOKS_ERROR:
-      console.log('Failed');
+    case GET_BOOKS_ERROR:
       return state;
 
     case POST_BOOK_START:
-      console.log('Start posting book');
       return state;
 
     case POST_BOOK_SUCCESS:
-      console.log('Post Book Success: ', action.payload);
       return [...state, action.payload];
 
     case POST_BOOK_ERROR:
-      console.log('Post Book Failed');
       return state;
 
     case REMOVE_BOOK:
@@ -56,20 +50,20 @@ const reducer = (state = [], action = {}) => {
 };
 
 // Action Creators
-const fetchBooksStarted = () => ({
-  type: FETCH_BOOKS_START,
+const getBooksStarted = () => ({
+  type: GET_BOOKS_START,
 });
 
-const fetchBooksSuccess = (books) => ({
-  type: FETCH_BOOKS_SUCCESS,
+const getBooksSuccess = (books) => ({
+  type: GET_BOOKS_SUCCESS,
   payload: books.map((book) => ({
     ...book,
     ...getRandomProgress(),
   })),
 });
 
-const fetchBooksFailed = (error) => ({
-  type: FETCH_BOOKS_ERROR,
+const getBooksFailed = (error) => ({
+  type: GET_BOOKS_ERROR,
   error,
 });
 
@@ -93,14 +87,14 @@ const removeBook = (id) => ({
 });
 
 // Thunks
-const fetchBooks = () => async (dispatch) => {
-  dispatch(fetchBooksStarted());
+const gettingBooks = () => async (dispatch) => {
+  dispatch(getBooksStarted());
 
   try {
     const books = await getBooks();
-    dispatch(fetchBooksSuccess(books));
+    dispatch(getBooksSuccess(books));
   } catch (error) {
-    dispatch(fetchBooksFailed(error.toString()));
+    dispatch(getBooksFailed(error.toString()));
   }
 };
 
@@ -133,6 +127,6 @@ const postingBook = (bookInfo) => async (dispatch) => {
 export {
   reducer as default,
   removeBook,
-  fetchBooks,
+  gettingBooks as fetchBooks,
   postingBook,
 };
