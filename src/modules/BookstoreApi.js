@@ -26,6 +26,31 @@ const getBooks = async () => {
   return books;
 };
 
+const postBook = async (book) => {
+  console.log(book);
+  const resp = await fetch(getBooksUrl, {
+    method: 'POST',
+    body: JSON.stringify(book),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not OK');
+      }
+
+      return response;
+    });
+
+  if (resp.status === 201) {
+    return true;
+  }
+
+  return false;
+};
+
 export {
   getBooks as default,
+  postBook,
 };

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import getBooks from '../../modules/BookstoreApi';
+import getBooks, { postBook } from '../../modules/BookstoreApi';
 
 // Helpers
 const getRandomProgress = () => {
@@ -13,11 +13,47 @@ const getRandomProgress = () => {
 };
 
 // Actions
-const ADD_BOOK = 'bookStore/books/ADD_BOOK';
 const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
 const FETCH_BOOKS_START = 'bookStore/books/FETCH_BOOKS_START';
 const FETCH_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
 const FETCH_BOOKS_ERROR = 'bookStore/books/FETCH_BOOKS_ERROR';
+const POST_BOOK_START = 'bookStore/books/POST_BOOK_START';
+const POST_BOOK_SUCCESS = 'bookStore/books/POST_BOOK_SUCCESS';
+const POST_BOOK_ERROR = 'bookStore/books/POST_BOOK_ERROR';
+
+// Reducer
+const reducer = (state = [], action = {}) => {
+  switch (action.type) {
+    case FETCH_BOOKS_START:
+      console.log('Start fetching books');
+      return state;
+
+    case FETCH_BOOKS_SUCCESS:
+      console.log('Success: ', action.payload);
+      return action.payload;
+
+    case FETCH_BOOKS_ERROR:
+      console.log('Failed');
+      return state;
+
+    case POST_BOOK_START:
+      console.log('Start posting book');
+      return state;
+
+    case POST_BOOK_SUCCESS:
+      console.log('Post Book Success: ', action.payload);
+      return [...state, action.payload];
+
+    case POST_BOOK_ERROR:
+      console.log('Post Book Failed');
+      return state;
+
+    case REMOVE_BOOK:
+      return state.filter((book) => book.id !== action.payload);
+
+    default: return state;
+  }
+};
 
 // Action Creators
 const fetchBooksStarted = () => ({
@@ -37,6 +73,26 @@ const fetchBooksFailed = (error) => ({
   error,
 });
 
+const postBookStarted = () => ({
+  type: POST_BOOK_START,
+});
+
+const postBookSuccess = (book) => ({
+  type: POST_BOOK_SUCCESS,
+  payload: book,
+});
+
+const postBookFailed = (error) => ({
+  type: POST_BOOK_ERROR,
+  error,
+});
+
+const removeBook = (id) => ({
+  type: REMOVE_BOOK,
+  payload: id,
+});
+
+// Thunks
 const fetchBooks = () => async (dispatch) => {
   dispatch(fetchBooksStarted());
 
@@ -48,49 +104,35 @@ const fetchBooks = () => async (dispatch) => {
   }
 };
 
-// Reducer
-const reducer = (state = [], action = {}) => {
-  switch (action.type) {
-    case FETCH_BOOKS_START:
-      console.log('Start fetching books');
-      return [];
+const postingBook = (bookInfo) => async (dispatch) => {
+  dispatch(postBookStarted());
+  const id = uuidv4();
+  const bookPost = {
+    item_id: id,
+    category: 'Miscellaneous',
+    ...bookInfo,
+  };
+  const book = {
+    id,
+    category: 'Miscellaneous',
+    ...bookInfo,
+    ...getRandomProgress(),
+  };
 
-    case FETCH_BOOKS_SUCCESS:
-      console.log('Success: ', action.payload);
-      return action.payload;
-
-    case FETCH_BOOKS_ERROR:
-      console.log('Failed');
-      return [];
-
-    case ADD_BOOK:
-      return [...state, action.payload];
-
-    case REMOVE_BOOK:
-      return state.filter((book) => book.id !== action.payload);
-
-    default: return state;
+  try {
+    const response = await postBook(bookPost);
+    console.log(response);
+    if (response) {
+      dispatch(postBookSuccess(book));
+    }
+  } catch (error) {
+    dispatch(postBookFailed(error.toString()));
   }
 };
 
-const addBook = (book) => ({
-  type: ADD_BOOK,
-  payload: {
-    id: uuidv4(),
-    category: 'Miscellaneous',
-    ...book,
-    ...getRandomProgress(),
-  },
-});
-
-const removeBook = (id) => ({
-  type: REMOVE_BOOK,
-  payload: id,
-});
-
 export {
   reducer as default,
-  addBook,
   removeBook,
   fetchBooks,
+  postingBook,
 };
