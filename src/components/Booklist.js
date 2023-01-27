@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/books';
+import { deletingBook } from '../redux/books/books';
 import Book from './Book';
 
 const Booklist = () => {
@@ -8,7 +8,7 @@ const Booklist = () => {
   const dispatch = useDispatch();
 
   const removeBookHandler = (id) => {
-    dispatch(removeBook(id));
+    dispatch(deletingBook(id));
   };
 
   return (

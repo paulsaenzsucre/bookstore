@@ -1,73 +1,163 @@
 import { v4 as uuidv4 } from 'uuid';
+import getBooks, { postBook, deleteBook } from '../../modules/BookstoreApi';
+
+// Helpers
+const getRandomProgress = () => {
+  const chapters = Math.round(15 + Math.random() * 50);
+  const currentChapter = Math.round(Math.random() * chapters);
+
+  return ({
+    chapters,
+    currentChapter,
+  });
+};
 
 // Actions
-const ADD_BOOK = 'bookStore/books/ADD_BOOK';
-const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
+const GET_BOOKS_START = 'bookStore/books/FETCH_BOOKS_START';
+const GET_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
+const GET_BOOKS_ERROR = 'bookStore/books/FETCH_BOOKS_ERROR';
+const POST_BOOK_START = 'bookStore/books/POST_BOOK_START';
+const POST_BOOK_SUCCESS = 'bookStore/books/POST_BOOK_SUCCESS';
+const POST_BOOK_ERROR = 'bookStore/books/POST_BOOK_ERROR';
+const DELETE_BOOK_START = 'bookStore/books/DELETE_BOOK_START';
+const DELETE_BOOK_SUCCESS = 'bookStore/books/DELETE_BOOK_SUCCESS';
+const DELETE_BOOK_ERROR = 'bookStore/books/DELETE_BOOK_ERROR';
 
 // Reducer
-const reducer = (state = [{
-  id: uuidv4(),
-  category: 'Action',
-  title: 'The Hunger Games',
-  author: 'Suzanne Collins',
-  chapters: 25,
-  currentChapter: 16,
-},
-{
-  id: uuidv4(),
-  category: 'Science Fiction',
-  title: 'Dune',
-  author: 'Frank Herbert',
-  chapters: 25,
-  currentChapter: 2,
-},
-{
-  id: uuidv4(),
-  category: 'Economy',
-  title: 'Capital in the Twenty-First century',
-  author: 'Suzanne Collins',
-  chapters: 30,
-  currentChapter: 0,
-},
-], action = {}) => {
-  let newState;
+const reducer = (state = [], action = {}) => {
   switch (action.type) {
-    case ADD_BOOK:
-      newState = [...state];
+    case GET_BOOKS_START:
+      return state;
+
+    case GET_BOOKS_SUCCESS:
+      return action.payload;
+
+    case GET_BOOKS_ERROR:
+      return state;
+
+    case POST_BOOK_START:
+      return state;
+
+    case POST_BOOK_SUCCESS:
       return [...state, action.payload];
 
-    case REMOVE_BOOK:
-      newState = state.filter((book) => book.id !== action.payload);
-      return newState;
+    case POST_BOOK_ERROR:
+      return state;
+
+    case DELETE_BOOK_START:
+      return state;
+
+    case DELETE_BOOK_SUCCESS:
+      return state.filter((book) => book.id !== action.payload);
+
+    case DELETE_BOOK_ERROR:
+      return state;
 
     default: return state;
   }
 };
 
 // Action Creators
-const addBook = (book) => {
-  const chapters = Math.round(15 + Math.random() * 50);
-  const currentChapter = Math.round(Math.random() * chapters);
+const getBooksStarted = () => ({
+  type: GET_BOOKS_START,
+});
 
-  return {
-    type: ADD_BOOK,
-    payload: {
-      id: uuidv4(),
-      category: 'Miscellaneous',
-      ...book,
-      chapters,
-      currentChapter,
-    },
-  };
-};
+const getBooksSuccess = (books) => ({
+  type: GET_BOOKS_SUCCESS,
+  payload: books.map((book) => ({
+    ...book,
+    ...getRandomProgress(),
+  })),
+});
 
-const removeBook = (id) => ({
-  type: REMOVE_BOOK,
+const getBooksFailed = (error) => ({
+  type: GET_BOOKS_ERROR,
+  error,
+});
+
+const postBookStarted = () => ({
+  type: POST_BOOK_START,
+});
+
+const postBookSuccess = (book) => ({
+  type: POST_BOOK_SUCCESS,
+  payload: book,
+});
+
+const postBookFailed = (error) => ({
+  type: POST_BOOK_ERROR,
+  error,
+});
+
+const deleteBookStarted = () => ({
+  type: DELETE_BOOK_START,
+});
+
+const deleteBookSuccess = (id) => ({
+  type: DELETE_BOOK_SUCCESS,
   payload: id,
 });
 
+const deleteBookFailed = (error) => ({
+  type: DELETE_BOOK_ERROR,
+  error,
+});
+
+// Thunks
+const gettingBooks = () => async (dispatch) => {
+  dispatch(getBooksStarted());
+
+  try {
+    const books = await getBooks();
+    dispatch(getBooksSuccess(books));
+  } catch (error) {
+    dispatch(getBooksFailed(error.toString()));
+  }
+};
+
+const postingBook = (bookInfo) => async (dispatch) => {
+  dispatch(postBookStarted());
+  const id = uuidv4();
+  const bookPost = {
+    item_id: id,
+    category: 'Miscellaneous',
+    ...bookInfo,
+  };
+  const book = {
+    id,
+    category: 'Miscellaneous',
+    ...bookInfo,
+    ...getRandomProgress(),
+  };
+
+  try {
+    const response = await postBook(bookPost);
+
+    if (response) {
+      dispatch(postBookSuccess(book));
+    }
+  } catch (error) {
+    dispatch(postBookFailed(error.toString()));
+  }
+};
+
+const deletingBook = (bookId) => async (dispatch) => {
+  dispatch(deleteBookStarted());
+
+  try {
+    const response = await deleteBook(bookId);
+
+    if (response) {
+      dispatch(deleteBookSuccess(bookId));
+    }
+  } catch (error) {
+    dispatch(deleteBookFailed(error.toString()));
+  }
+};
+
 export {
   reducer as default,
-  addBook,
-  removeBook,
+  deletingBook,
+  gettingBooks as fetchBooks,
+  postingBook,
 };
