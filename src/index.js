@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/configureStore';
 import { fetchBooks } from './redux/books/books';
+import './index.css';
 
 store.dispatch(fetchBooks());
 const root = ReactDOM.createRoot(document.getElementById('root'));

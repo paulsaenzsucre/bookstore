@@ -46,12 +46,12 @@ class Book extends Component {
             <p className="completed">Completed</p>
           </div>
           <hr />
-          <div>
+          <div className="prog-cont roboto-300">
             <p className="currentTitle">CURRENT CHAPTER</p>
             <p className="currentChapter">
               {`Chapter ${currentChapter}`}
             </p>
-            <button type="button" className="current-btn">UPDATE PROGRESS</button>
+            <button type="button" className="enfasis-button current-button roboto-300">UPDATE PROGRESS</button>
           </div>
         </div>
       </div>

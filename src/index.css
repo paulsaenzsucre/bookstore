@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya&family=Roboto&family=Roboto+Slab:wght@300&display=swap');
+
+:root {
+  --primary-color: black;
+  --secondary-color: gray;
+  --enfasis-color: #0290ff;
+  --contrast-color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.enfasis-button {
+  background-color: var(--enfasis-color);
+  color: var(--contrast-color);  
+}
+
+.current-button {
+  padding: 0.5rem 1.5rem;
+  letter-spacing: 0.031rem;
+  margin-top: 1.25rem;
+}
+
+.roboto-300 {
+  font-family: "Roboto Slab",serif;
+  font-weight: 300;
+}
+
+.currentTitle {  
+  color: var(--secondary-color);
+  font-size: 0.813rem;
+}
+
+.currentChapter {
+  color: var(--primary-color);
+  margin-top: .438rem;
+  font-size: 1rem;
+  letter-spacing: -.4px;
+}
