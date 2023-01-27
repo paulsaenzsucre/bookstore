@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import getBooks, { postBook } from '../../modules/BookstoreApi';
+import getBooks, { postBook, deleteBook } from '../../modules/BookstoreApi';
 
 // Helpers
 const getRandomProgress = () => {
@@ -13,13 +13,15 @@ const getRandomProgress = () => {
 };
 
 // Actions
-const REMOVE_BOOK = 'bookStore/books/REMOVE_BOOK';
 const GET_BOOKS_START = 'bookStore/books/FETCH_BOOKS_START';
 const GET_BOOKS_SUCCESS = 'bookStore/books/FETCH_BOOKS_SUCCESS';
 const GET_BOOKS_ERROR = 'bookStore/books/FETCH_BOOKS_ERROR';
 const POST_BOOK_START = 'bookStore/books/POST_BOOK_START';
 const POST_BOOK_SUCCESS = 'bookStore/books/POST_BOOK_SUCCESS';
 const POST_BOOK_ERROR = 'bookStore/books/POST_BOOK_ERROR';
+const DELETE_BOOK_START = 'bookStore/books/DELETE_BOOK_START';
+const DELETE_BOOK_SUCCESS = 'bookStore/books/DELETE_BOOK_SUCCESS';
+const DELETE_BOOK_ERROR = 'bookStore/books/DELETE_BOOK_ERROR';
 
 // Reducer
 const reducer = (state = [], action = {}) => {
@@ -42,8 +44,14 @@ const reducer = (state = [], action = {}) => {
     case POST_BOOK_ERROR:
       return state;
 
-    case REMOVE_BOOK:
+    case DELETE_BOOK_START:
+      return state;
+
+    case DELETE_BOOK_SUCCESS:
       return state.filter((book) => book.id !== action.payload);
+
+    case DELETE_BOOK_ERROR:
+      return state;
 
     default: return state;
   }
@@ -81,9 +89,18 @@ const postBookFailed = (error) => ({
   error,
 });
 
-const removeBook = (id) => ({
-  type: REMOVE_BOOK,
+const deleteBookStarted = () => ({
+  type: DELETE_BOOK_START,
+});
+
+const deleteBookSuccess = (id) => ({
+  type: DELETE_BOOK_SUCCESS,
   payload: id,
+});
+
+const deleteBookFailed = (error) => ({
+  type: DELETE_BOOK_ERROR,
+  error,
 });
 
 // Thunks
@@ -115,7 +132,7 @@ const postingBook = (bookInfo) => async (dispatch) => {
 
   try {
     const response = await postBook(bookPost);
-    console.log(response);
+
     if (response) {
       dispatch(postBookSuccess(book));
     }
@@ -124,9 +141,23 @@ const postingBook = (bookInfo) => async (dispatch) => {
   }
 };
 
+const deletingBook = (bookId) => async (dispatch) => {
+  dispatch(deleteBookStarted());
+
+  try {
+    const response = await deleteBook(bookId);
+
+    if (response) {
+      dispatch(deleteBookSuccess(bookId));
+    }
+  } catch (error) {
+    dispatch(deleteBookFailed(error.toString()));
+  }
+};
+
 export {
   reducer as default,
-  removeBook,
+  deletingBook,
   gettingBooks as fetchBooks,
   postingBook,
 };
