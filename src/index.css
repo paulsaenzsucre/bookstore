@@ -46,7 +46,7 @@ form {
   margin-top: 1.25rem;
 }
 
-input{
+input {
   padding: 0.75rem;
   font-size: 1rem;
 }
@@ -70,7 +70,7 @@ button {
 
 .enfasis-button {
   background-color: var(--enfasis-color);
-  color: var(--contrast-color);  
+  color: var(--contrast-color);
 }
 
 .outline-button {
@@ -108,16 +108,16 @@ button {
   font-weight: 700;
 }
 
-.currentTitle {  
+.currentTitle {
   color: var(--secondary-color);
   font-size: 0.875rem;
 }
 
 .currentChapter {
   color: var(--primary-color);
-  margin-top: .438rem;
+  margin-top: 0.438rem;
   font-size: 1rem;
-  letter-spacing: -.4px;
+  letter-spacing: -0.025rem;
 }
 
 .current-button {
