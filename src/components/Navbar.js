@@ -21,13 +21,13 @@ class Navbar extends React.Component {
   #links;
 
   render = () => (
-    <nav className="navBar">
-      <ul className="navBarCont">
+    <nav className="nav-bar">
+      <ul className="nav-links-cont">
         {this.#links.map((link) => (
           <li key={link.id} className="navItem">
             <NavLink
               to={link.path}
-              className={({ isActive }) => (isActive ? 'navLink activeLink' : 'navLink')}
+              className={({ isActive }) => `montserrat-400 navLink${isActive ? ' activeLink' : ''}`}
               exact="true"
             >
               {link.text}
