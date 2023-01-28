@@ -12,9 +12,9 @@ class CircleProgress extends Component {
   render = () => {
     const { ratio } = this.props;
     return (
-      <svg id="svg" width="200" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <circle r="90" cx="100" cy="100" fill="transparent" strokeDasharray="565.48" strokeDashoffset="0" stroke="#e8e8e8" strokeWidth={10} />
-        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" strokeDasharray="565.48" strokeDashoffset={this.#getStroke(ratio)} stroke="#307bbe" strokeWidth={10} transform="rotate(-90, 100, 100)" />
+      <svg className="progress-bar" width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle r="90" cx="100" cy="100" fill="transparent" strokeDasharray="565.48" strokeDashoffset="0" stroke="gray" strokeWidth={15} />
+        <circle className="bar" r="90" cx="100" cy="100" fill="transparent" strokeDasharray="565.48" strokeDashoffset={this.#getStroke(ratio)} stroke="#0290ff" opacity={0.5} strokeWidth={15} transform="rotate(-90, 100, 100)" />
       </svg>
     );
   };
