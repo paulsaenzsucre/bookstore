@@ -11,13 +11,13 @@ class App extends React.Component {
   }
 
   render = () => (
-    <>
+    <div className="app-cont">
       <Header />
       <Routes>
         <Route index element={<BooksPage />} />
         <Route path="/categories/" element={<CategoriesPage />} />
       </Routes>
-    </>
+    </div>
   );
 }
 export default App;

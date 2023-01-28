@@ -1,5 +1,6 @@
 import React from 'react';
 import { HiUser } from 'react-icons/hi';
+import { IconContext } from 'react-icons';
 import Navbar from './Navbar';
 
 class Header extends React.Component {
@@ -9,10 +10,16 @@ class Header extends React.Component {
   }
 
   render = () => (
-    <header>
-      <h1 className="appName">Bookstore CMS</h1>
+    <header className="header">
+      <h1 className="montserrat-700 app-name">Bookstore CMS</h1>
       <Navbar />
-      <button type="button" aria-label="Login"><HiUser /></button>
+      <IconContext.Provider
+        value={{ color: 'var(--enfasis-color)', size: '1.5rem' }}
+      >
+        <button className="icon-button" type="button" aria-label="Login">
+          <HiUser />
+        </button>
+      </IconContext.Provider>
     </header>
   )
 }

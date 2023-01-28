@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@300;700&display=swap');
+
+:root {
+  --primary-color: black;
+  --secondary-color: gray;
+  --enfasis-color: #0290ff;
+  --outline-color: #4386bf;
+  --contrast-color: white;
+  --bookcard-border-color: rgba(128, 128, 128, 0.2);
+  --app-bgcolor: #fafafa;
+  --app-shadow: 0 0 3.75rem 0 rgba(0, 0, 0, 0.05);
+  --page-bgcolor: #f5f6fa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--page-bgcolor);
+  padding: 4%;
+}
+
+.border {
+  border-radius: 0.25rem;
+  border: 0.063rem solid  var(--bookcard-border-color);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 1.5rem 4%;
+  background-color: var(--contrast-color);
+  border-bottom: 0.063rem solid var(--bookcard-border-color);
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.25rem;
+}
+
+input {
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+input[type=text] {
+  background-color: var(--contrast-color);
+  color: var(--primary-color);
+}
+
+input::placeholder {
+  color: var(--secondary-color);
+  opacity: 0.5;
+}
+
+input[type=submit],
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+.enfasis-button {
+  background-color: var(--enfasis-color);
+  color: var(--contrast-color);
+}
+
+.outline-button {
+  background-color: transparent;
+  color: var(--outline-color);
+}
+
+.vertical-sep {
+  border: 0.063rem solid var(--secondary-color);
+  opacity: 0.2;
+}
+
+.horizontal-sep {
+  border: 0.063rem solid var(--secondary-color);
+  opacity: 0.2;
+}
+
+.roboto-300 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 300;
+}
+
+.roboto-700 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 700;
+}
+
+.montserrat-400 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+
+.montserrat-700 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.currentTitle {
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+}
+
+.currentChapter {
+  color: var(--primary-color);
+  margin-top: 0.438rem;
+  font-size: 1rem;
+  letter-spacing: -0.025rem;
+}
+
+.current-button {
+  padding: 0.5rem 1.5rem;
+  letter-spacing: 0.031rem;
+  margin-top: 1.25rem;
+}
+
+.progress-bar-cont {
+  width: 5rem;
+  height: 5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 100%;
+}
+
+.percent-ratio {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.percent-text {
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-sep {
+  height: 4.375rem;
+  margin: 0 2.688rem 0 3.938rem;
+}
+
+.action-btn {
+  font-size: 0.875rem;
+}
+
+.action-sep {
+  height: 1.5rem;
+}
+
+.action-bar {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.book-cat {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+}
+
+.book-title {
+  font-size: 1.375rem;
+  letter-spacing: -0.013rem;
+  color: var(--primary-color);
+  margin-top: 0.188rem;
+}
+
+.book-author {
+  font-size: 0.875rem;
+  color: var(--outline-color);
+}
+
+.book-card-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--contrast-color);
+  padding: 2rem;
+}
+
+.book-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  letter-spacing: -0.013rem;
+  color: var(--secondary-color);
+}
+
+.input-title {
+  width: 50%;
+}
+
+.input-author {
+  width: 30%;
+}
+
+.form-button {
+  width: 20%;
+  font-size: 0.845rem;
+  letter-spacing: 0.031rem;
+  padding: 0.847rem;
+}
+
+.books-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 4%;
+}
+
+.books-sep {
+  margin-top: 0.5rem;
+}
+
+.navLink {
+  font-size: 0.813rem;
+  letter-spacing: 0.12rem;
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
+.activeLink {
+  color: var(--primary-color);
+}
+
+.nav-bar {
+  flex-grow: 1;
+}
+
+.nav-links-cont {
+  display: flex;
+  list-style-type: none;
+  gap: 2.5rem;
+}
+
+.app-name {
+  color: var(--enfasis-color);
+  font-size: 1.875rem;
+}
+
+.icon-button {
+  width: 2.813rem;
+  height: 2.813rem;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 0.063rem solid var(--bookcard-border-color);
+}
+
+.check-button {
+  font-size: 0.845rem;
+  letter-spacing: 0.031rem;
+  padding: 0.847rem;
+}
+
+.cat-page {
+  padding: 4%;
+}
+
+.cat-msg {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.app-cont {
+  padding: 0 0 8%;
+  border-radius: 0.25rem;
+  box-shadow: var(--app-shadow);
+  background-color: var(--app-bgcolor);
+}

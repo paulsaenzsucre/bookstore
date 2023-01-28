@@ -9,9 +9,9 @@ class BooksPage extends Component {
   }
 
   render = () => (
-    <div>
+    <div className="books-page">
       <Booklist />
-      <hr />
+      <hr className="horizontal-sep books-sep" />
       <AddBookForm />
     </div>
   );

@@ -22,36 +22,36 @@ class Book extends Component {
     } = this.props;
 
     return (
-      <div className="bookCardCont">
+      <div className="border book-card-cont">
         <div className="book">
-          <div className="bookInfo">
-            <p className="bookCat">{category}</p>
-            <p className="bookTitle">{title}</p>
-            <p className="bookAuthor">{author}</p>
+          <div className="book-info">
+            <p className="montserrat-700 book-cat">{category}</p>
+            <p className="roboto-700 book-title">{title}</p>
+            <p className="roboto-300 book-author">{author}</p>
           </div>
-          <div className="actionBar">
-            <button type="button" className="actionBtn">Comments</button>
-            <hr />
-            <button type="button" className="actionBtn" onClick={() => removeBook(id)}>Remove</button>
-            <hr />
-            <button type="button" className="actionBtn">Edit</button>
+          <div className="action-bar">
+            <button type="button" className="outline-button action-btn .roboto-300">Comments</button>
+            <hr className="vertical-sep action-sep" />
+            <button type="button" className="outline-button action-btn .roboto-300" onClick={() => removeBook(id)}>Remove</button>
+            <hr className="vertical-sep action-sep" />
+            <button type="button" className="outline-button action-btn .roboto-300">Edit</button>
           </div>
         </div>
-        <div className="progress">
-          <div className="circleProgress">
+        <div className="progress-stats">
+          <div className="progress-bar-cont">
             <CircleProgress ratio={currentChapter / chapters} />
           </div>
-          <div className="progressStats">
-            <p className="percentStat">{this.calcPercentStat(currentChapter / chapters)}</p>
-            <p className="completed">Completed</p>
+          <div className="percent-stat montserrat-400">
+            <p className="percent-ratio">{this.calcPercentStat(currentChapter / chapters)}</p>
+            <p className="percent-text">Completed</p>
           </div>
-          <hr />
-          <div>
+          <hr className="vertical-sep progress-sep" />
+          <div className="progress-chapter roboto-300">
             <p className="currentTitle">CURRENT CHAPTER</p>
             <p className="currentChapter">
               {`Chapter ${currentChapter}`}
             </p>
-            <button type="button" className="current-btn">UPDATE PROGRESS</button>
+            <button type="button" className="enfasis-button current-button roboto-300">UPDATE PROGRESS</button>
           </div>
         </div>
       </div>
