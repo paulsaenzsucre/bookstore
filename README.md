@@ -62,7 +62,7 @@
 
 Click in the following link to see a working live version of this project:
 
-- [Bookstore App demo](https://elafildecolor.github.io/Bookstore/)
+- [Bookstore App demo](https://www.paulsaenzsucre.dev/Bookstore/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
